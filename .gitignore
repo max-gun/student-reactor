@@ -1,0 +1,5 @@
+.idea
+target
+node
+frontend/node
+frontend/node_modules
