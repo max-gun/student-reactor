@@ -13,20 +13,35 @@ class StudentForm extends React.Component {
         }
     }
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        if (this.state.isDeleteMode){
+            this.deleteStudent(event);
+        } else {
+            this.addStudent(event);
+        }
+    };
+
+    addStudent = async(event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
         const student = Object.fromEntries(formData.entries());
         
         try {
             console.log('sending saving request');
             const response = await axios.post(`${config.apiUrl}/students`, student);
             console.log('received response: ', response);
-            e.target.reset();
+            event.target.reset();
         } catch (error) {
             console.error('Error saving student:', error);
         }
-    };
+    }
+
+    deleteStudent = async(event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        console.log(Object.fromEntries(formData.entries()));
+    }
 
     changeMode() {
         this.setState(prevState => ({
@@ -57,7 +72,10 @@ class StudentForm extends React.Component {
                 <div className='col'>
                     <button className='btn btn-primary btn-lg'
                     role='button' aria-disabled="true"
-                    onClick={this.changeMode.bind(this)}>
+                    onClick={this.changeMode.bind(this)}
+                    style={{backgroundColor: this.state.isDeleteMode ? 'red' : 'green',
+                            color: this.state.isDeleteMode ? 'orange' : 'black'
+                    }}>
                         Change Mode to {this.state.isDeleteMode ? 'Add' : 'Delete'}
                     </button>
                 </div>
