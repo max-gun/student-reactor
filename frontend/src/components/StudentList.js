@@ -48,7 +48,7 @@ class StudentList extends Component {
                     <div className="col">
                         <button onClick={this.fetchStudents} className="btn btn-secondary mb-3">fetch Students</button>
                     </div>
-                    <div class="col">
+                    <div className="col">
                         <button onClick={this.handleShowModal} className="btn btn-primary mb-3">Show Student Names</button>
                     </div>
                 </div>
