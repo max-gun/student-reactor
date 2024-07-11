@@ -14,7 +14,7 @@ function App() {
             <Headline title='Student Management System'/>
           </div>
           <div className="row">
-            <StudentForm />
+            <StudentForm studentName="Doron"/>
           </div>
           <div className="row">
             <div className="col">

@@ -8,6 +8,7 @@ class StudentList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            students : [],
             showModal: false
         };
     }
@@ -17,18 +18,21 @@ class StudentList extends Component {
             console.log('sending fetching request');
             const response = await axios.get(`${config.apiUrl}/students`);
             console.log('received response: ', response);
-            this.renderStudents(response.data);
+            this.setState({
+                students : response.data
+            })
+            //this.renderStudents(response.data);
         } catch (error) {
             console.error('Error fetching students:', error);
         }
     };
 
-    renderStudents = (students) => {
+    /*renderStudents = (students) => {
         const studentList = document.getElementById('student-list');
         studentList.innerHTML = students.map(student => 
             `<li class="list-group-item" key="${student.id}">${student.name} (${student.email})</li>`
         ).join('');
-    };
+    };*/
 
     handleShowModal = () => {
         this.setState({ showModal: true });
@@ -56,7 +60,7 @@ class StudentList extends Component {
                 <ul id="student-list" className="list-group"></ul>
                 
                 <StudentModal
-                    students={[]}
+                    students={this.state.students}
                     show={this.state.showModal}
                     handleClose={this.handleCloseModal}
                 />

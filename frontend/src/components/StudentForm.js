@@ -3,8 +3,17 @@ import axios from 'axios';
 import config from '../configs/config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const StudentForm = () => {
-    const handleSubmit = async (e) => {
+class StudentForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            formTitle : 'Add',
+            buttonName : 'Submit',
+            isDeleteMode : false
+        }
+    }
+
+    handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const student = Object.fromEntries(formData.entries());
@@ -19,20 +28,42 @@ const StudentForm = () => {
         }
     };
 
-    return (
-        <form onSubmit={handleSubmit} className="container mt-4">
-            <h1 className="mb-4">Add Student</h1>
-            <div className="mb-3">
-                <label className="form-label">Name:</label>
-                <input type="text" name="name" className="form-control" />
+    changeMode() {
+        this.setState(prevState => ({
+            formTitle : prevState.isDeleteMode ? 'Add' : 'Delete',
+            buttonName : prevState.isDeleteMode ? 'Submit' : 'Remove',
+            isDeleteMode : !prevState.isDeleteMode
+        }));
+    }
+
+    render() {
+        return (
+            <div className='row'>
+                <form className="container col mt-4" onSubmit={this.handleSubmit}>
+                    <h3 className="mb-4">{this.state.formTitle} Student</h3>
+                    <div className="mb-3">
+                        <label className="form-label">Name:</label>
+                        <input type="text" name="name" className="form-control" />
+                    </div>
+                    {!this.state.isDeleteMode ? (
+                    <div className="mb-3">
+                        <label className="form-label">Email:</label>
+                        <input type="email" name="email" className="form-control" />
+                    </div>)
+                    : (<p>Be careful when deleting - don't truncate or drop tables</p>)
+                    }
+                    <button type="submit" className="btn btn-primary">{this.state.buttonName}</button>
+                </form>
+                <div className='col'>
+                    <button className='btn btn-primary btn-lg'
+                    role='button' aria-disabled="true"
+                    onClick={this.changeMode.bind(this)}>
+                        Change Mode to {this.state.isDeleteMode ? 'Add' : 'Delete'}
+                    </button>
+                </div>
             </div>
-            <div className="mb-3">
-                <label className="form-label">Email:</label>
-                <input type="email" name="email" className="form-control" />
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-    );
+        );
+    }
 };
 
 export default StudentForm;

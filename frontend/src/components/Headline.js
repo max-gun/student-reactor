@@ -15,7 +15,7 @@ class Headline extends Component {
             })
         }
         else if (this.state.username === "Max") {
-            this.setState({ //show example of modifying the state directly
+            this.setState({
                 username : "Alexey"
             })
         }
