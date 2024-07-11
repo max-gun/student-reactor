@@ -4,21 +4,23 @@ import StudentForm from './components/StudentForm';
 import StudentList from './components/StudentList';
 import EmailList from './components/EmailList';
 import Navbar from './components/Navbar';
+import Headline from './components/Headline';
 
 function App() {
   return (
         <div className='container'>
-          <div class="row">
+          <div className="row">
             <Navbar />
+            <Headline title='Student Management System'/>
           </div>
-          <div class="row">
+          <div className="row">
             <StudentForm />
           </div>
-          <div class="row">
-            <div class="col">
+          <div className="row">
+            <div className="col">
               <StudentList />
             </div>
-            <div class="col">
+            <div className="col">
               <EmailList />
             </div>
           </div>
