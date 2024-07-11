@@ -51,6 +51,10 @@ class StudentForm extends React.Component {
         }));
     }
 
+    extendForm() {
+        
+    }
+
     render() {
         return (
             <div className='row'>
@@ -70,14 +74,23 @@ class StudentForm extends React.Component {
                     <button type="submit" className="btn btn-primary">{this.state.buttonName}</button>
                 </form>
                 <div className='col'>
-                    <button className='btn btn-primary btn-lg'
-                    role='button' aria-disabled="true"
-                    onClick={this.changeMode.bind(this)}
-                    style={{backgroundColor: this.state.isDeleteMode ? 'red' : 'green',
-                            color: this.state.isDeleteMode ? 'orange' : 'black'
-                    }}>
-                        Change Mode to {this.state.isDeleteMode ? 'Add' : 'Delete'}
-                    </button>
+                    <div className='row'>
+                        <button className='btn btn-primary btn-lg'
+                        role='button' aria-disabled="true"
+                        onClick={this.changeMode.bind(this)}
+                        style={{backgroundColor: this.state.isDeleteMode ? 'red' : 'green',
+                                color: this.state.isDeleteMode ? 'orange' : 'black'
+                        }}>
+                            Change Mode to {this.state.isDeleteMode ? 'Add' : 'Delete'}
+                        </button>
+                    </div>
+                    <div className='row'>
+                        <button className='btn btn-primary btn-lg'
+                        role='button' aria-disabled="true"
+                        onClick={this.extendForm.bind(this)}>
+                            Extend Form
+                        </button>
+                    </div>
                 </div>
             </div>
         );
